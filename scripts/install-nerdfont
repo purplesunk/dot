@@ -28,7 +28,7 @@ download_font() {
   url="$1"
   font="$2"
   download_path="/tmp/$font.tar.xz"
-  install_path="$installation_path/${font}NerdFont"
+  install_path="$installation_path/${font}-nerdfont"
   curl -L "$url" -o "$download_path"
   [[ ! -f "$download_path" ]] && \
     echo "Could not download the $font" && return 1
