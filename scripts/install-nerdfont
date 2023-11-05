@@ -4,23 +4,41 @@ declare installation_path
 installation_path="$XDG_DATA_HOME/fonts"
 
 lookup_fonts() {
-  curl -sSL 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest' | \
-    jq '.assets 
-      | map(select(.content_type == "application/x-xz")
-      | .name |= sub("\\.tar\\.xz"; "") | .name |= ascii_downcase
-      | { name: .name, url: .browser_download_url })'
+  local fonts
+  fonts=$(curl -sSL 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest' | \
+    grep -E 'browser.*tar')
+  fonts=${fonts//\"browser_download_url\":/}
+  fonts=${fonts//\"/}
+  echo "$fonts"
+}
+
+font_name() {
+  local font="$1"
+  font=${font##*\/}
+  font=${font%%.*}
+  font=${font,,}
+  echo "$font"
 }
 
 list_fonts() {
-  lookup_fonts | jq -r '.[].name' && exit 0 || \
-    echo 'Unable to look for the fonts' && \
-    exit 1
+  local fonts font
+  fonts="$(lookup_fonts)"
+  [[ -z "$fonts" ]] && \
+    echo 'Unable to get the fonts' && exit 1
+  for font in $fonts
+  do
+    fontname "$font"
+  done
 }
 
 set_install_path() {
   local path="$1"
-  [[ -d "$path" && -w "$path" ]] && installation_path="$path"
-  echo "$path invalid directory" && exit 1
+  if [[ -d "$path" && -w "$path" ]]; then
+    installation_path="$path"
+  else
+    echo "$path invalid directory"
+    exit 1
+  fi
 }
 
 download_font() {
@@ -36,6 +54,20 @@ download_font() {
   tar xJf "$download_path" -C "$install_path" && echo "$font installed"
 }
 
+check_font() {
+  local data font name
+  data="$1"
+  font="$2"
+  for url in $data;
+  do
+    name="$(font_name "$url")"
+    [[ "$font" = "$name" ]] && \
+      download "$url" "$font" && \
+      return 0
+  done
+  echo "$font not found" && return 1
+}
+
 search_fonts() {
   local data input
   local url font
@@ -43,9 +75,7 @@ search_fonts() {
   data=$(lookup_fonts)
   for font in $input;
   do
-    url=$(echo "$data" | jq -r '.[] | select(.name == "'"$font"'") | .url')
-    [[ -z "$url" ]] && echo "$font not found" && continue
-    download_font "$url" "$font"
+    check_font "$data" "$font"
   done
 }
 
@@ -53,14 +83,14 @@ declare fonts=""
 declare read_output=0
 for arg in "$@"; do
   case "$arg" in
-  list) list_fonts;;
+  list) list_fonts "$(lookup_fonts)";;
   output) read_output=1;;
-  *) 
+  *)
   if [[ "$read_output" -eq 1 ]]; then
     set_install_path "$arg";
     read_output=0;
   else
-    fonts+="$arg ";
+    fonts+=" $arg";
   fi;;
   esac
 done
