@@ -1,0 +1,96 @@
+#Variables
+set $mod Mod4
+set $alt Mod1
+set $left  h
+set $down  j
+set $up    k
+set $right l
+set $term foot
+# set $menu wofi -I --show drun
+# set $menu fuzzel
+
+# macchiato
+set $menu bemenu-run --fn "monospace Medium 12" --fb "#24273a" --ff "#cad3f5" --nb "#24273a" --nf "#cad3f5" --tb "#24273a" --hb "#24273a" --tf "#ed8796" --hf "#eed49f" --nf "#cad3f5" --af "#cad3f5" --ab "#24273a"
+
+# frappe
+#set $menu bemenu-run --fb "#303446" --ff "#c6d0f5" --nb "#303446" --nf "#c6d0f5" --tb "#303446" --hb "#303446" --tf "#e78284" --hf "#e5c890" --nf "#c6d0f5" --af "#c6d0f5" --ab "#303446"
+
+set $audiocontrol $term --title pulsemixer -e pulsemixer
+
+# set $color-pick grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
+
+# bindsym $mod+r exec fuzzel -d #open runner # With fuzzel can run any command with the normal mode
+
+#Keybinds
+
+#System Keybinds
+# Audio:
+bindsym XF86AudioRaiseVolume    exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume    exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMicMute        exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86AudioMute           exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+# Brightness:
+bindsym XF86MonBrightnessDown   exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp     exec brightnessctl set 5%+
+
+# Player:
+bindsym XF86AudioPlay           exec playerctl play-pause
+bindsym XF86AudioNext           exec playerctl next
+bindsym XF86AudioPrev           exec playerctl previous
+
+# Settings:
+bindsym XF86Search              exec $menu
+bindsym $mod+F12                exec confirmpoweroff
+bindsym $mod+F11                exec confirmreboot
+bindsym $mod+F10                exec confirm-sway-exit
+
+bindsym $mod+Shift+c reload
+
+# Hide waybar
+bindsym $mod+z exec killall -SIGUSR1 waybar
+
+#Programs
+bindsym $mod+Shift+q kill           #kill program
+bindsym $mod+Return exec $term      #terminal emulator
+bindsym $mod+e exec $menu           #open menu launcher
+bindsym $mod+p exec $audiocontrol   #open audio settings
+
+# Move your focus around
+bindsym $mod+$up    focus up
+bindsym $mod+$right focus right
+bindsym $mod+$down  focus down
+bindsym $mod+$left  focus left
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$up      move up
+bindsym $mod+Shift+$right   move right
+bindsym $mod+Shift+$down    move down
+bindsym $mod+Shift+$left    move left
+
+# Change view mode
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+d layout toggle split
+bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+f fullscreen
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+space floating toggle
+
+# Sizing Gaps
+bindsym $mod+$alt+n gaps inner current set 0; gaps horizontal current set  0
+bindsym $mod+$alt+g gaps inner current set 5; gaps horizontal current set 10
+bindsym $mod+$alt+k gaps inner current plus  3;
+bindsym $mod+$alt+j gaps inner current minus 3;
+
+# Resizing containers
+bindsym $mod+ctrl+$left resize shrink width 10px
+bindsym $mod+ctrl+$down resize grow height 10px
+bindsym $mod+ctrl+$up resize shrink height 10px
+bindsym $mod+ctrl+$right resize grow width 10px
+
+# Screenshots
+bindsym $mod+ctrl+s exec confirm-menu "Do you want to save the screenshoot?" screenshoot || screenshoot - | wl-copy
+bindsym $mod+ctrl+w exec confirm-menu "Do you want to save the screenshoot?" screenshoot-window || screenshoot-window - | wl-copy
+bindsym $mod+ctrl+x exec confirm-menu "Do you want to save the screenshoot?" screenshoot-select || screenshoot-select - | wl-copy
+bindsym $mod+ctrl+c exec $color-pick

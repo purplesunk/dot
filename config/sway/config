@@ -1,0 +1,93 @@
+# SWAY CONFIGURATION
+
+# AUTOSTART
+# exec /usr/lib/polkit-kde-authentication-agent-1
+# exec udiskie
+# exec nm-applet
+# exec gammastep
+exec /usr/libexec/pipewire-launcher
+# exec swww init
+# exec swww img ~/wallpaper/windowsxp_cute.png
+
+# SETTINGS
+floating_modifier Mod4
+default_border pixel 1
+gaps inner 0
+gaps horizontal 0
+smart_borders no_gaps
+popup_during_fullscreen smart
+
+# WINDOW OPTIONS
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="thunar" title="Progreso de operación de archivo"] floating enable
+for_window [app_id="Alacritty" title="pulsemixer"] floating enable
+for_window [app_id="qbittorrent" title="Elegir ruta"] floating enable
+
+# BACKGROUND
+# output HDMI-A-1 mode 1920x1080 pos 1920 0 # Put monitor to the left
+# output * bg ~/.cache/wallpaper fill
+
+# SCREEN OFF WHEN IDLE
+exec swayidle -w \
+        timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+
+# INPUT CONFIGURATION
+input * {
+    xkb_layout "latam"
+    xkb_options caps:escape
+}
+
+input <identifier> xkb_model "pc101"
+input type:touchpad {
+    tap enabled
+}
+
+# DISABLE MOUSE ACCELERATION
+input type:pointer {
+    accel_profile flat
+    pointer_accel 0
+}
+
+seat * hide_cursor 2400
+#seat * xcursor_theme 'capitaine-cursors'
+seat * hide_cursor when-typing enable
+
+# GTK THEME
+set $gnome-schema org.gnome.desktop.interface
+
+# exec_always {
+#     gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+#     gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+#     gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
+#     gsettings set $gnome-schema font-name 'Your font name'
+# }
+
+include themes/catppuccin-macchiato
+include themes/theme
+
+# WAYBAR
+# bar {
+#      swaybar_command waybar
+#      position top
+# }
+
+# SWAYBAR
+# bar {
+#     position top
+#     tray_padding 5
+#     colors {
+#     background $base00
+#     separator  $base01
+#     statusline $base04
+#     #                   Border  BG      Text
+#     focused_workspace   $base05 $base0D $base00
+#     active_workspace    $base05 $base03 $base00
+#     inactive_workspace  $base03 $base01 $base05
+#     urgent_workspace    $base08 $base08 $base00
+#     binding_mode        $base00 $base0A $base00
+#     }
+# }
+
+include keybinds/keybind
+include keybinds/workspaces
+include /etc/sway/config.d/*
