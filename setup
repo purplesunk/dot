@@ -3,17 +3,18 @@ set -e
 
 install_desktop() {
     #for dir in $(find 'config' -not -name 'config' -maxdepth 1);
-    for dir in "$PWD"/config/*
+    for path in "$PWD"/config/*;
     do
-        ln -snf "$dir" "$HOME"/.config/"$(basename "$dir")"
-        #echo "$dir" "$HOME"/.config/"$(basename "$dir")"
+        file=$(basename "$path")
+        ln -snf "$path" "$HOME"/.config/"$file"
+        echo "$path" "$HOME"/.config/"$file"
     done
 }
 
 install_terminal() {
-    for file in .vimrc .bashrc .bash_profile;
+    for file in vimrc bashrc bash_profile;
     do
-        ln -snf "$PWD"/"$file" "$HOME"/"$file"
+        echo "$PWD"/"$file" "$HOME"/."$file"
     done
 }
 
@@ -23,3 +24,9 @@ install_windows() {
     cp "$PWD"/.vimrc "$HOME"/.vimrc
     #cp -r "$PWD"/config/nvim
 }
+
+case $1 in
+    desktop) install_desktop;;
+   # terminal) install_terminal;;
+    windows) install_windows;;
+esac
