@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Check for jq
-_have() { type "$1" 2>&1 1>/dev/null; }
+_have() { type "$1" >/dev/null 2>&1; }
 ! _have jq && echo 'Requires jq' && exit 1
 
 installation_path="$XDG_DATA_HOME/fonts"
