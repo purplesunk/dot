@@ -7,14 +7,13 @@ install_desktop() {
     do
         file=$(basename "$path")
         ln -snf "$path" "$HOME"/.config/"$file"
-        echo "$path" "$HOME"/.config/"$file"
     done
 }
 
 install_terminal() {
-    for file in vimrc bashrc bash_profile;
+    for file in .vimrc .bashrc .bash_profile;
     do
-        echo "$PWD"/"$file" "$HOME"/."$file"
+        ln -snf "$PWD"/"$file" "$HOME"/"$file"
     done
 }
 
@@ -27,6 +26,6 @@ install_windows() {
 
 case $1 in
     desktop) install_desktop;;
-   # terminal) install_terminal;;
+    terminal) install_terminal;;
     windows) install_windows;;
 esac
