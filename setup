@@ -2,11 +2,12 @@
 set -e
 
 install_desktop() {
-    #for dir in $(find 'config' -not -name 'config' -maxdepth 1);
-    for path in "$PWD"/config/*;
+    for src in "$PWD"/config/*;
     do
-        file=$(basename "$path")
-        ln -snf "$path" "$HOME"/.config/"$file"
+        file=$(basename "$src")
+        dest="$HOME"/.config/"$file"
+        [ -f "$dest" ] && echo "backup $dest before" && continue;
+        ln -snf "$src" "$dest"
     done
 }
 
