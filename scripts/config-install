@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+function config {
+    git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" "$@"
+}
+
+if [ ! -d "$HOME"/.dotfiles ]; then
+    git clone --bare https://github.com/purplesunk/dotfiles "$HOME"/.dotfiles
+
+    if config checkout 2> /dev/null; then
+        echo "Checked out config.";
+    else
+        echo "Backing up pre-existing dot files.";
+        OUTPUT=$(config checkout 2>&1 | grep -E "\s+\." | awk {'print $1'})
+        echo "${OUTPUT}" | sed -E 's/(.*\/).*/\1/' | uniq | xargs -I{} mkdir -p "$HOME"/.config-backup/{}
+        echo "${OUTPUT}" | xargs -I{} mv {} "$HOME"/.config-backup/{}
+        config checkout
+        echo "Checked out config.";
+    fi;
+
+    config config status.showUntrackedFiles no
+fi
+
+if [ "$OSTYPE" = "msys" ]; then
+    . "$HOME"/.local/bin/windows-config.ps1
+fi
