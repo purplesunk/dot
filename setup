@@ -6,7 +6,6 @@ install_desktop() {
     do
         file=$(basename "$src")
         dest="$HOME"/.config/"$file"
-        [ -f "$dest" ] && echo "backup $dest before" && continue;
         ln -snf "$src" "$dest"
     done
 }
