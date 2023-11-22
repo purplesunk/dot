@@ -7,7 +7,7 @@
 export REPOS="$HOME/repos"
 export GHREPOS="$REPOS/github.com"
 export MYREPOS="$GHREPOS/purplesunk"
-export DOTFILES="$GHREPOS/purplesunk/dot"
+export DOTFILES="$MYREPOS/dot"
 export SCRIPTS="$DOTFILES/scripts"
 
 export GOPATH="$HOME/.local/go"
