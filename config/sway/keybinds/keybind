@@ -10,7 +10,7 @@ set $term foot
 # set $menu fuzzel
 
 # macchiato
-set $menu bemenu-run --fn "monospace Medium 12" --fb "#24273a" --ff "#cad3f5" --nb "#24273a" --nf "#cad3f5" --tb "#24273a" --hb "#24273a" --tf "#ed8796" --hf "#eed49f" --nf "#cad3f5" --af "#cad3f5" --ab "#24273a"
+set $menu bemenu-run -b --fn "monospace Medium 12" --fb "#24273a" --ff "#cad3f5" --nb "#24273a" --nf "#cad3f5" --tb "#24273a" --hb "#24273a" --tf "#ed8796" --hf "#eed49f" --nf "#cad3f5" --af "#cad3f5" --ab "#24273a"
 
 # frappe
 #set $menu bemenu-run --fb "#303446" --ff "#c6d0f5" --nb "#303446" --nf "#c6d0f5" --tb "#303446" --hb "#303446" --tf "#e78284" --hf "#e5c890" --nf "#c6d0f5" --af "#c6d0f5" --ab "#303446"
@@ -31,8 +31,8 @@ bindsym XF86AudioMicMute        exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggl
 bindsym XF86AudioMute           exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 # Brightness:
-bindsym XF86MonBrightnessDown   exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp     exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown   exec brightnessctl set 1-
+bindsym XF86MonBrightnessUp     exec brightnessctl set 1+
 
 # Player:
 bindsym XF86AudioPlay           exec playerctl play-pause
