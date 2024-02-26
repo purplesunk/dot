@@ -3,9 +3,11 @@
 # AUTOSTART
 # exec /usr/lib/polkit-kde-authentication-agent-1
 # exec udiskie
-# exec nm-applet
 # exec gammastep
+exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 exec /usr/libexec/pipewire-launcher
+exec nm-applet
+exec "wlsunset -l -34.42 -L -58.76 -t 2500"
 # exec swww init
 # exec swww img ~/wallpaper/windowsxp_cute.png
 
@@ -22,10 +24,11 @@ for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="thunar" title="Progreso de operación de archivo"] floating enable
 for_window [app_id="Alacritty" title="pulsemixer"] floating enable
 for_window [app_id="qbittorrent" title="Elegir ruta"] floating enable
+for_window [app_id="wofi"] border none
 
 # BACKGROUND
 # output HDMI-A-1 mode 1920x1080 pos 1920 0 # Put monitor to the left
-# output * bg ~/.cache/wallpaper fill
+output * bg ~/.cache/wallpaper fill
 
 # SCREEN OFF WHEN IDLE
 exec swayidle -w \
@@ -49,27 +52,29 @@ input type:pointer {
 }
 
 seat * hide_cursor 2400
-#seat * xcursor_theme 'capitaine-cursors'
+seat * xcursor_theme "Capitaine Cursors"
 seat * hide_cursor when-typing enable
+
+# exec xrdb -load "~/.config/X11/xresources"
 
 # GTK THEME
 set $gnome-schema org.gnome.desktop.interface
 
-# exec_always {
-#     gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
-#     gsettings set $gnome-schema icon-theme 'Papirus-Dark'
-#     gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
-#     gsettings set $gnome-schema font-name 'Your font name'
-# }
+exec_always {
+     #gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+     gsettings set $gnome-schema icon-theme 'Papirus'
+     gsettings set $gnome-schema cursor-theme 'Capitaine Cursors'
+     #gsettings set $gnome-schema font-name 'Your font name'
+}
 
 include themes/catppuccin-macchiato
 include themes/theme
 
 # WAYBAR
-# bar {
-#      swaybar_command waybar
-#      position top
-# }
+bar {
+     swaybar_command waybar
+     position top
+}
 
 # SWAYBAR
 # bar {
