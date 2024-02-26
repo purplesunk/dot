@@ -27,7 +27,7 @@ list_fonts() {
     echo 'Unable to get the fonts' && exit 1
   for font in $fonts
   do
-    fontname "$font"
+    font_name "$font"
   done
 }
 
@@ -62,7 +62,7 @@ check_font() {
   do
     name="$(font_name "$url")"
     [[ "$font" = "$name" ]] && \
-      download "$url" "$font" && \
+      download_font "$url" "$font" && \
       return 0
   done
   echo "$font not found" && return 1
