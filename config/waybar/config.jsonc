@@ -1,9 +1,9 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
+    "layer": "bottom",
+    "position": "top",
     "spacing": 0,
     "modules-left": ["custom/launcher", "sway/workspaces", "sway/window", "sway/mode", "sway/scratchpad", "idle_inhibitor"],
-    "modules-center": ["pulseaudio", "backlight", "clock"],
+    "modules-center": ["clock"],
     "modules-right": ["tray", "cpu", "memory", "temperature", "custom/powermenu"],
     // Modules configuration
     "sway/workspaces": {
@@ -13,7 +13,7 @@
          "format-icons": {
             "focused": "",
             "urgent": "",
-            "default": "",
+            "default": ""
          }
      },
     "sway/mode": {
@@ -43,7 +43,6 @@
         "spacing": 10
     },
     "clock": {
-        // "timezone": "America/New_York",
         "format": " {:%H:%M}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "󰃮 {:%d/%m/%Y}"
@@ -86,12 +85,12 @@
     },
     "custom/powermenu": {
         "format": "",
-        "on-click": "",
+        "on-click": "~/.config/sway/scripts/logout-menu",
         "tooltip": false,
     },
     "custom/launcher": {
         "format": "",
-        "on-click": "fuzzel",
+        "on-click": "wofi --show drun",
         "tooltip": false,
     }
 }
