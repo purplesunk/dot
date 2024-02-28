@@ -1,0 +1,17 @@
+#!/bin/bash
+
+case "$1" in
+  'bemenu')
+    option=$(echo -e '󰌾 Lock\n󰍃 Log Out\n Power Off\n󰑙 Reboot' | bemenu -i);;
+  'wofi')
+    option=$(echo -e '󰌾 Lock\n󰍃 Log Out\n Power Off\n󰑙 Reboot' | wofi -dmenu -W 20% -H 20%);;
+esac
+
+option=${option#* }
+
+case "$option" in
+  'Lock') swaylockd;;
+  'Log Out') swaymsg exit;;
+  'Power Off') doas /sbin/poweroff;;
+  'Reboot') doas /sbin/reboot;;
+esac
