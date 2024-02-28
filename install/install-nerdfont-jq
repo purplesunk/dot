@@ -4,8 +4,6 @@
 _have() { type "$1" >/dev/null 2>&1; }
 ! _have jq && echo 'Requires jq' && exit 1
 
-installation_path="$XDG_DATA_HOME/fonts"
-
 lookup_fonts() {
   curl -sSL 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest' | \
     jq '.assets
@@ -35,11 +33,11 @@ download_font() {
   font="$2"
   download_path="/tmp/$font.tar.xz"
   install_path="$installation_path/${font}-nerdfont"
-  curl -L "$url" -o "$download_path"
+  curl -sSL "$url" -o "$download_path"
   [ ! -f "$download_path" ] && \
     echo "Could not download the $font" && return 1
   mkdir -p "$install_path"
-  tar xJf "$download_path" -C "$install_path" && echo "$font installed"
+  tar xJf "$download_path" -C "$install_path" && echo "$font installed in $install_path"
 }
 
 search_fonts() {
@@ -52,6 +50,12 @@ search_fonts() {
     download_font "$url" "$font"
   done
 }
+
+if [ -n "$XDG_DATA_HOME" ]; then
+  installation_path="$XDG_DATA_HOME/fonts"
+else
+  installation_path="$HOME/fonts"
+fi
 
 fonts=""
 read_output=0
