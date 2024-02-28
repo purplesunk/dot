@@ -6,15 +6,14 @@ export XDG_SESSION_TYPE=wayland
 export GDK_BACKEND=wayland,x11
 export SDL_VIDEODRIVER=wayland
 export CLUTTER_BACKBEND=wayland
+export MOZ_ENABLE_WAYLAND="1"
 
 export QT_QPA_PLATFORM="wayland;xcb"
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_WAYLAND_DISABLE_WINDOWSDECORATION=1
 #QT_QPA_PLATFORMTHEME=qt5ct
 
+export BEMENU_BACKEND=wayland
+export BEMENU_OPTS='-b --no-overlap --list "10" --fn "sans 11" --fb "#24273a" --ff "#cad3f5" --nb "#24273a" --nf "#cad3f5" --tb "#24273a" --hb "#24273a" --tf "#ed8796" --hf "#eed49f" --nf "#cad3f5" --af "#cad3f5" --ab "#24273a"'
 
-#export BEMENU_BACKEND=wayland
-#export BEMENU_OPTS="--monitor 'all' --line-height '26' --no-overlap --list '10' --nb '#373b41' --hb '#373b41' --sb '#373b41' --tb '#373b41' --fb '#373b41' --scb '#373b41' --hf '#de935f' --tf '#de935f'"
-
-
-exec sway "$@"
+exec dbus-run-session -- sway "$@"
