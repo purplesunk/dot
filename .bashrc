@@ -7,8 +7,7 @@
 export REPOS="$HOME/repos"
 export GHREPOS="$REPOS/github.com"
 export MYREPOS="$GHREPOS/purplesunk"
-export DOTFILES="$MYREPOS/dot"
-export SCRIPTS="$DOTFILES/scripts"
+export DOTFILES="$GHREPOS/purplesunk/dot"
 
 export GOPATH="$HOME/.local/go"
 export GOBIN="$HOME/.local/bin"
@@ -37,11 +36,11 @@ pathprepend() {
 
 pathappend \
     "$HOME/.local/bin" \
-    "$HOME/.local/go/bin"\
-    "$SCRIPTS"
+    "$HOME/.local/go/bin" \
+    "$HOME/.local/share/racket/8.12/bin"
 
 # CDPATH
-export CDPATH=".:$HOME:$GHREPOS:$MYREPOS:$REPOS"
+export CDPATH=".:$HOME:$MYREPOS"
 
 shopt -s checkwinsize # Check rows and columns before running command
 # Check what this do:
@@ -88,3 +87,6 @@ alias "??"='gpt'
 
 # Vi mode
 set -o vi
+
+complete -cf doas
+complete -F _command doas

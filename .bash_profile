@@ -1,7 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 [[ -f "$HOME"/.bashrc ]] && \
 	. "$HOME"/.bashrc
+
+export EDITOR=nvim
+
+# Profile file. Runs on login. Environmental variables are set here.
+# Adds `~/.local/bin` to $PATH
+PATH="/home/$USER/.local/bin:/home/$USER/.local/go/bin:$PATH:/usr/local/bin"
 
 export XDG_CONFIG_HOME="$HOME"/.config
 export XDG_CACHE_HOME="$HOME"/.cache
@@ -27,6 +33,10 @@ export BASH_COMPLETION_USER_FILE="$XDG_CONFIG_HOME"/bash-completion/bash_complet
 # export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 # export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
 # export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
+
+# GO:
+export GOPATH="$HOME/.local/go"
+export GOBIN="$HOME/.local/bin"
 
 # W3M:
 export W3M_DIR="$XDG_STATE_HOME/w3m"
