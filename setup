@@ -1,9 +1,20 @@
 #!/bin/sh
 set -e
 
+backup_path="$HOME"/backup_"$(date '+%Y%m%d%H%m%S')"
+
+setup() {
+    case $1 in
+        desktop) install_desktop;;
+        terminal) install_terminal;;
+        windows) install_windows;;
+    esac
+}
+
 create_backup() {
-    if [ -e "$1" ]; then
-        mv "$1" "${1}.bkp"
+    file="$1"
+    if [ -e "$file" ]; then
+        mv "$file" "${backup_path}/${file}"
     fi
 }
 
@@ -15,6 +26,7 @@ install_desktop() {
         create_backup "$dest"
         ln -snf "$src" "$dest"
     done
+    install_terminal
 }
 
 install_terminal() {
@@ -32,8 +44,4 @@ install_windows() {
     cp "$PWD"/.vimrc "$HOME"/.vimrc
 }
 
-case $1 in
-    desktop) install_desktop;;
-    terminal) install_terminal;;
-    windows) install_windows;;
-esac
+setup "$@"
