@@ -4,11 +4,9 @@
 
 # Environment variables (don't know if this should be on profile, but
 # git-bash doesn't read the profile)
-export REPOS="$HOME/repos"
-export GHREPOS="$REPOS/github.com"
-export MYREPOS="$GHREPOS/purplesunk"
-export DOTFILES="$GHREPOS/purplesunk/dot"
-
+export MYREPOS="$HOME/repos/github.com/purplesunk"
+export DOTFILES="$MYREPOS/dot"
+export SCRIPTS="$DOTFILES/scripts"
 export GOPATH="$HOME/.local/go"
 export GOBIN="$HOME/.local/bin"
 
@@ -35,6 +33,7 @@ pathprepend() {
 } && export -f pathprepend
 
 pathappend \
+    "$SCRIPTS" \
     "$HOME/.local/bin" \
     "$HOME/.local/go/bin" \
     "$HOME/.local/share/racket/8.12/bin"
@@ -75,7 +74,7 @@ alias cdpath='printf "${CDPATH//:/\\n}\n"'
 alias clear='printf "\e[H\e[2J"'
 alias c='printf "\e[H\e[2J"'
 alias "?"='duck'
-alias "??"='gpt'
+alias tmux='tmux -f "$HOME/.config/tmux/tmux.conf"'
 
 # Import folder aliases
 [[ -f "$HOME/.config/aliases" ]] && \
