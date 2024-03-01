@@ -8,8 +8,7 @@ set $up    k
 set $right l
 
 set $term foot
-
-set $menu bemenu-run -b --fn "monospace Medium 12" --fb "#24273a" --ff "#cad3f5" --nb "#24273a" --nf "#cad3f5" --tb "#24273a" --hb "#24273a" --tf "#ed8796" --hf "#eed49f" --nf "#cad3f5" --af "#cad3f5" --ab "#24273a"
+set $menu bemenu-run
 
 # set $audiocontrol $term --title pulsemixer -e pulsemixer
 set $audiocontrol pavucontrol
@@ -59,7 +58,7 @@ bindsym $mod+Shift+$left    move left
 # Change view mode
 bindsym $mod+v layout toggle split
 bindsym $mod+space focus mode_toggle
-bindsym $mod+Shift+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen
 bindsym $mod+Shift+space floating toggle
 
 # Resize window
@@ -67,6 +66,16 @@ bindsym $mod+ctrl+$left resize shrink width 10px
 bindsym $mod+ctrl+$down resize grow height 10px
 bindsym $mod+ctrl+$up resize shrink height 10px
 bindsym $mod+ctrl+$right resize grow width 10px
+
+# Screenshots
+bindsym $mod+s exex screenshot
+bindsym $mod+Shift+s exec selectscreenshot
+# Choose window to screenshot...
+# Color picker maybe...
+
+# Dismiss notifications
+bindsym $mod+a exec makoctl dismiss
+bindsym $mod+Shift+a exec makoctl dismiss --all
 
 # Workspaces:
 # Switch to workspace

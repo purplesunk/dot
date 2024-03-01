@@ -10,7 +10,7 @@ esac
 option=${option#* }
 
 case "$option" in
-  'Lock') swaylockd;;
+  'Lock') "$HOME/.config/sway/scripts/lockscreen";;
   'Log Out') swaymsg exit;;
   'Power Off') doas /sbin/poweroff;;
   'Reboot') doas /sbin/reboot;;

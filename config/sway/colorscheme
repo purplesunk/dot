@@ -26,7 +26,8 @@ set $crust     #181926
 set $baset     #24273aeb
 
 # target                 title     bg    text   indicator  border
-client.focused           $blue     $base $text  $blue      $blue
+# client.focused         $blue     $base $text  $blue      $blue
+client.focused           $baset    $base $text  $baset     $baset
 client.focused_inactive  $baset    $base $text  $baset     $baset
 client.unfocused         $baset    $base $text  $baset     $baset
 client.urgent            $peach    $base $peach $peach     $peach
