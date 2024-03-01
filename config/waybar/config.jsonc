@@ -85,7 +85,7 @@
     },
     "custom/powermenu": {
         "format": "",
-        "on-click": "~/.config/sway/scripts/logout-menu",
+        "on-click": "$HOME/.config/sway/scripts/logout-menu",
         "tooltip": false,
     },
     "custom/launcher": {
