@@ -1,97 +1,90 @@
 #!/bin/bash
 
+declare -A font_arr
 declare installation_path
+
 installation_path="$XDG_DATA_HOME/fonts"
+installation_path="${installation_path:-$HOME/.fonts}"
+
+install_nerdfont() {
+  local fonts=""
+  for arg in "$@"; do
+    case "$arg" in
+      list) list_fonts;;
+      *) fonts+=" $arg";
+    esac
+  done
+
+  [[ -n "$fonts" ]] && install_fonts "$fonts"
+}
+
+fontname() {
+  local font="$1"
+  font=${font##*\/}
+  font=${font%%.*}
+  font=${font,,}
+  printf '%s' "$font"
+}
 
 lookup_fonts() {
   local fonts
-  fonts=$(curl -sSL 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest' | \
+  fonts=$(curl -sSL \
+    'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest' | \
     grep -E 'browser.*tar')
+  [[ -z "$fonts" ]] && exit 1
   fonts=${fonts//\"browser_download_url\":/}
   fonts=${fonts//\"/}
   echo "$fonts"
 }
 
-font_name() {
-  local font="$1"
-  font=${font##*\/}
-  font=${font%%.*}
-  font=${font,,}
-  echo "$font"
-}
-
-list_fonts() {
-  local fonts font
-  fonts="$(lookup_fonts)"
-  [[ -z "$fonts" ]] && \
-    echo 'Unable to get the fonts' && exit 1
-  for font in $fonts
-  do
-    fontname "$font"
+build_font_arr() {
+  local urls
+  urls="$(lookup_fonts)"
+  for font_url in $urls; do
+    font="$(fontname "$font_url")"
+    font_arr["$font"]="$font_url"
   done
 }
 
-set_install_path() {
-  local path="$1"
-  if [[ -d "$path" && -w "$path" ]]; then
-    installation_path="$path"
-  else
-    echo "$path invalid directory"
-    exit 1
-  fi
+install_fonts() {
+  local fonts font font_url
+  fonts="$1"
+
+  build_font_arr
+
+  for font in $fonts; do
+    font_url="${font_arr[$font]}"
+
+    [[ -z "$font_url" ]] && \
+      echo "$font not found" && continue
+
+    download_font "$font_url" "$font"
+  done
 }
 
 download_font() {
   local url font download_path install_path
-  url="$1"
   font="$2"
-  download_path="/tmp/$font.tar.xz"
+  url="$1"
+
   install_path="$installation_path/${font}-nerdfont"
-  curl -L "$url" -o "$download_path"
+  download_path="/tmp/$font.tar.xz"
+
+  curl -sSL "$url" -o "$download_path"
   [[ ! -f "$download_path" ]] && \
     echo "Could not download the $font" && return 1
+
   mkdir -p "$install_path"
-  tar xJf "$download_path" -C "$install_path" && echo "$font installed"
+  tar xJf "$download_path" -C "$install_path" && \
+    echo "$font installed in $install_path"
 }
 
-check_font() {
-  local data font name
-  data="$1"
-  font="$2"
-  for url in $data;
-  do
-    name="$(font_name "$url")"
-    [[ "$font" = "$name" ]] && \
-      download "$url" "$font" && \
-      return 0
+list_fonts() {
+  build_font_arr
+  for font in "${!font_arr[@]}"; do
+    printf '%s\n' "$font"
   done
-  echo "$font not found" && return 1
+  exit 0
 }
 
-search_fonts() {
-  local data input
-  local url font
-  input="$1"
-  data=$(lookup_fonts)
-  for font in $input;
-  do
-    check_font "$data" "$font"
-  done
-}
-
-declare fonts=""
-declare read_output=0
-for arg in "$@"; do
-  case "$arg" in
-  list) list_fonts "$(lookup_fonts)";;
-  output) read_output=1;;
-  *)
-  if [[ "$read_output" -eq 1 ]]; then
-    set_install_path "$arg";
-    read_output=0;
-  else
-    fonts+=" $arg";
-  fi;;
-  esac
-done
-[[ -n "$fonts" ]] && search_fonts "$fonts"
+install_nerdfont "$@"

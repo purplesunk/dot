@@ -1,0 +1,8 @@
+#!/bin/sh
+
+path=/tmp/lockscreen.png
+
+grim -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" | \
+    convert - -blur 0x8 "$path"
+
+swaylock -f

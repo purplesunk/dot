@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Check for dependencies
+_have() { type "$1" >/dev/null 2>&1; }
+! _have unzip && echo 'Requires unzip' && exit 1
+
+installation_path="$XDG_DATA_HOME/fonts"
+installation_path="${installation_path:-$HOME/.fonts}"
+
+sans_url='https://github.com/adobe-fonts/source-sans/releases/download/3.052R/TTF-source-sans-3.052R.zip'
+serif_url='https://github.com/adobe-fonts/source-serif/releases/download/4.005R/source-serif-4.005_Desktop.zip'
+
+download_font() {
+  local url="$1"
+  local font="$2"
+  local download_path="/tmp/$font.zip"
+  local install_path="$installation_path/${font}"
+
+  curl -sSL "$url" -o "$download_path"
+  [ ! -f "$download_path" ] && \
+    echo "Could not download the $font" && return 1
+
+  mkdir -p "$install_path"
+  unzip -qn "$download_path" -d "$install_path" && \
+    echo "$font installed in $install_path"
+}
+
+main() {
+  download_font "$sans_url" "source-sans"
+  download_font "$serif_url" "source-serif"
+}
+
+main

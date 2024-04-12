@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Need to add VM Ware/bin directory to PATH for this to work
+
+vmrun.exe start "$USERPROFILE"/Documents/Virtual\ Machines/Ubuntu\ Server\ 64-bit/Ubuntu\ Server\ 64-bit.vmx nogui

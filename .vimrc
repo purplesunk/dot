@@ -78,7 +78,7 @@ set nowritebackup
 set icon
 
 " highlight search hits
-set hlsearch
+set nohlsearch
 set incsearch
 set linebreak
 

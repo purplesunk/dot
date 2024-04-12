@@ -1,19 +1,40 @@
 #!/bin/sh
 set -e
 
+backup_path="$HOME"/backup_"$(date '+%Y%m%d%H%m%S')"
+
+setup() {
+    case $1 in
+        desktop) install_desktop;;
+        terminal) install_terminal;;
+        windows) install_windows;;
+    esac
+}
+
+create_backup() {
+    file="$1"
+    if [ -e "$file" ]; then
+        mv "$file" "${backup_path}/${file}"
+    fi
+}
+
 install_desktop() {
     for src in "$PWD"/config/*;
     do
         file=$(basename "$src")
         dest="$HOME"/.config/"$file"
+        create_backup "$dest"
         ln -snf "$src" "$dest"
     done
+    install_terminal
 }
 
 install_terminal() {
     for file in .vimrc .bashrc .bash_profile;
     do
-        ln -snf "$PWD"/"$file" "$HOME"/"$file"
+        dest="$HOME/$file"
+        create_backup "$dest"
+        ln -snf "$PWD"/"$file" "$dest"
     done
 }
 
@@ -21,11 +42,6 @@ install_windows() {
     cp "$PWD"/config/git/config "$HOME"/.gitconfig
     cp "$PWD"/.bashrc "$HOME"/.bashrc
     cp "$PWD"/.vimrc "$HOME"/.vimrc
-    #cp -r "$PWD"/config/nvim
 }
 
-case $1 in
-    desktop) install_desktop;;
-    terminal) install_terminal;;
-    windows) install_windows;;
-esac
+setup "$@"
