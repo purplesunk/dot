@@ -1,0 +1,101 @@
+! YT Homepage - Hide the Shorts section
+youtube.com##[is-shorts]
+! YT Menu - Hide the Shorts button
+www.youtube.com###guide [title="Shorts"], .ytd-mini-guide-entry-renderer[title="Shorts"]
+! YT Search - Hide Shorts
+www.youtube.com##ytd-search ytd-video-renderer [overlay-style="SHORTS"]:upward(ytd-video-renderer)
+! YT Search - Hide short filter
+www.youtube.com##ytd-search yt-chip-cloud-chip-renderer [title="Shorts"]:upward(yt-chip-cloud-chip-renderer)
+! YT Search and Channels - Hide the Shorts sections
+www.youtube.com##ytd-reel-shelf-renderer
+! YT Channels - Hide the Shorts tab
+www.youtube.com##ytd-browse[page-subtype="channels"] [role="tab"]:nth-of-type(3):has-text(Shorts)
+! YT Subscriptions - Hide Shorts - Grid View
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-grid-video-renderer [overlay-style="SHORTS"]:upward(ytd-grid-video-renderer)
+! YT Subscriptions - Hide Shorts - List View
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-video-renderer [overlay-style="SHORTS"]:upward(ytd-item-section-renderer)
+! YT Subscriptions - New Layout - Hide Shorts
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-rich-item-renderer [overlay-style="SHORTS"]:upward(ytd-rich-item-renderer)
+! YT Sidebar - Hide Shorts
+www.youtube.com###related ytd-compact-video-renderer [overlay-style="SHORTS"]:upward(ytd-compact-video-renderer)
+! YT Mobile - Hide the Shorts Menu button
+m.youtube.com##.pivot-shorts:upward(ytm-pivot-bar-item-renderer)
+! YT Mobile - Hide Shorts sections
+m.youtube.com##ytm-reel-shelf-renderer
+! YT Mobile - Hide Shorts in search results
+m.youtube.com##ytm-search ytm-video-with-context-renderer [data-style="SHORTS"]
+
+! YT recommended after pause
+youtube-nocookie.com,youtube.com##.ytp-pause-overlay, .show-video-thumbnail-button
+~youtube-nocookie.com,~youtube.com##iframe ~ #topvbar > #rvid
+
+! YT Home - Hide almost everything
+youtube.com##ytd-browse[page-subtype="home"]
+youtube.com##ytd-browse[page-subtype="home"] ytb-page-manager
+! YT Side panel
+youtube.com##tp-yt-app-drawer
+youtube.com##ytd-mini-guide-renderer
+! youtube.com##tp-yt-app-drawer #guide-content
+
+! YT Hide topbar icons, start (yt icon), end (login button)
+youtube.com##ytd-masthead #start
+youtube.com##ytd-masthead #end
+
+! YT Hide Channel and sub button
+! youtube.com##ytd-watch-metadata #owner
+youtube.com##ytd-watch-metadata #top-row
+
+! YT Home - Hide videos
+! youtube.com##ytd-browse[page-subtype="home"] ytd-rich-item-renderer
+! YT Sidebar - Hide videos
+youtube.com###related ytd-compact-video-renderer
+! Mobile YT - Hide videos
+m.youtube.com##ytm-media-item .media-channel a:upward(ytm-media-item)
+! Removes Mixes from the Main Page
+! youtube.com##ytd-rich-item-renderer #video-title-link[title*="Mix"][href$="start_radio=1"]:upward(ytd-rich-item-renderer)
+! Removes Mixes from the right side panel
+! youtube.com##ytd-compact-radio-renderer
+! Removes Mixes from search results
+! youtube.com##ytd-radio-renderer
+! Removes "YouTube" (Music) playlists from the right side panel
+! youtube.com##ytd-compact-playlist-renderer .ytd-channel-name:has-text(/^YouTube/):upward(ytd-compact-playlist-renderer)
+youtube.com##ytd-watch-flexy #secondary
+
+! YT Hide comments
+youtube.com##ytd-comments
+
+! YT Hide annoying things in the video
+/annotations_module.js$script,important,domain=youtube.com
+/endscreen.js$script,important,domain=youtube.com
+youtube.com##.ytp-button.ytp-cards-button
+youtube.com##.ytp-button.branding-img-container
+
+! YT Video - Hide Channel
+
+! YT Search - keep videos and channels
+youtube.com##ytd-search ytd-item-section-renderer>#contents>:not(ytd-video-renderer,ytd-channel-renderer),ytd-secondary-search-container-renderer
+
+! YT Dialogs
+youtube.com##ytd-popup-container > tp-yt-paper-dialog > ytd-mealbar-promo-renderer, ytd-popup-container > tp-yt-paper-dialog > yt-mealbar-promo-renderer:has-text(/Claim Offer|Join now|Not Now|No thanks|YouTube TV|live TV|Live TV|movies|sports|Try it free|unlimited DVR|watch NFL/)
+
+! Hide "1080p Premium" in the video quality menu
+! Firefox:
+youtube.com##.ytp-quality-menu .ytp-premium-label:upward(.ytp-menuitem)
+! Chromium:
+! youtube.com##.ytp-quality-menu .ytp-menuitem:has(.ytp-premium-label)
+
+! No waiting 5 second on firefox
+www.youtube.com##+js(nano-stb, resolve(1), *, 0.001)
+
+! Invidious instances comments and suggested content
+yewtu.be###comments
+yewtu.be##.pure-u-1 .pure-u-lg-1-5 > .h-box
+vid.puffyan.us###comments
+vid.puffyan.us##.pure-u-1 .pure-u-lg-1-5 > .h-box
+
+! Discord telemetry blocking
+||discord.com/api/v*/science
+||discord.com/api/v*/track
+||discord.com/api/v*/-applications/detectable
+||discord.com/api/v*/-friend-suggestions
+
