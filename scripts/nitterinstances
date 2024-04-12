@@ -1,0 +1,3 @@
+#!/bin/sh
+
+curl -sSL 'https://github.com/zedeus/nitter/wiki/Instances' | grep 'td.*a.*http' | sed -E 's/.*a href=\"(.*)\" rel=.*/\1/' | grep -v ssllabs.com

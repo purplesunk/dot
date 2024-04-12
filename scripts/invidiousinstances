@@ -1,0 +1,5 @@
+#!/bin/sh
+
+curl -Ss https://api.invidious.io/ \
+| grep 'a href="http' \
+| sed -E 's/^.*href="(.*)">.*$/\1/'
