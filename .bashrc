@@ -50,7 +50,12 @@ shopt -s checkwinsize # Check rows and columns before running command
 
 # History
 shopt -s histappend
+HISTSIZE=10000
+HISTFILESIZE=100000
 PROMPT_COMMAND='history -a'
+
+HISTCONTROL=ignoreboth
+HISTIGNORE='ls:ll:ls -alh:pwd:clear:history'
 
 # PROMPT, Maybe move this to another file?
 # Git branch
@@ -75,6 +80,9 @@ alias clear='printf "\e[H\e[2J"'
 alias c='printf "\e[H\e[2J"'
 alias "?"='duck'
 alias tmux='tmux -f "$HOME/.config/tmux/tmux.conf"'
+alias vim=nvim
+alias python=python3
+
 
 # Import folder aliases
 [[ -f "$HOME/.config/aliases" ]] && \
@@ -89,3 +97,6 @@ set -o vi
 
 complete -cf doas
 complete -F _command doas
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
