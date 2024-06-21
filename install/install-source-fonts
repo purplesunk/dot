@@ -5,7 +5,7 @@ _have() { type "$1" >/dev/null 2>&1; }
 ! _have unzip && echo 'Requires unzip' && exit 1
 
 installation_path="$XDG_DATA_HOME/fonts"
-installation_path="${installation_path:-$HOME/.fonts}"
+installation_path="${XDG_DATA_HOME:-$HOME/.fonts}"
 
 sans_url='https://github.com/adobe-fonts/source-sans/releases/download/3.052R/TTF-source-sans-3.052R.zip'
 serif_url='https://github.com/adobe-fonts/source-serif/releases/download/4.005R/source-serif-4.005_Desktop.zip'
