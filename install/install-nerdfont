@@ -4,7 +4,7 @@ declare -A font_arr
 declare installation_path
 
 installation_path="$XDG_DATA_HOME/fonts"
-installation_path="${installation_path:-$HOME/.fonts}"
+installation_path="${XDG_DATA_HOME:-$HOME/.fonts}"
 
 install_nerdfont() {
   local fonts=""
