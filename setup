@@ -23,7 +23,7 @@ install_desktop() {
     do
         file=$(basename "$src")
         dest="$HOME"/.config/"$file"
-        create_backup "$dest"
+        #create_backup "$dest"
         ln -snf "$src" "$dest"
     done
     install_terminal
@@ -33,7 +33,7 @@ install_terminal() {
     for file in .vimrc .bashrc .bash_profile;
     do
         dest="$HOME/$file"
-        create_backup "$dest"
+        #create_backup "$dest"
         ln -snf "$PWD"/"$file" "$dest"
     done
 }

@@ -82,6 +82,8 @@ alias "?"='duck'
 alias tmux='tmux -f "$HOME/.config/tmux/tmux.conf"'
 alias vim=nvim
 alias python=python3
+alias ytd="yt-dlp -f 'bv+ba' -S 'res:720' -t mkv"
+alias ythd="yt-dlp -f 'bv+ba' -S 'res:1080' -t mkv"
 
 
 # Import folder aliases
