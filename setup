@@ -8,6 +8,7 @@ setup() {
         desktop) install_desktop;;
         terminal) install_terminal;;
         windows) install_windows;;
+	git) install_git;;
     esac
 }
 
@@ -36,6 +37,10 @@ install_terminal() {
         #create_backup "$dest"
         ln -snf "$PWD"/"$file" "$dest"
     done
+}
+
+install_git() {
+	ln -snf "$PWD"/config/git "$HOME"/.config/git
 }
 
 install_windows() {
