@@ -9,6 +9,7 @@ setup() {
         terminal) install_terminal;;
         windows) install_windows;;
 	git) install_git;;
+	newsboat) install_newsboat;;
     esac
 }
 
@@ -41,6 +42,10 @@ install_terminal() {
 
 install_git() {
 	ln -snf "$PWD"/config/git "$HOME"/.config/git
+}
+
+install_newsboat() {
+	ln -snf "$PWD"/config/newsboat "$HOME"/.config/newsboat
 }
 
 install_windows() {

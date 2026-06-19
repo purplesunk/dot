@@ -1,0 +1,7 @@
+#!/bin/sh
+
+current_index="$(pactl -f json list sinks | jq 'map(.name) | index("'"$(pactl get-default-sink)"'")')"
+next_sink="$(pactl -f json list sinks | jq '.[('"$current_index"'+1)%3] | {name: .name, description: .description}')"
+
+pactl set-default-sink "$(echo "$next_sink" | jq -r '.name')"
+notify-send "Default sink set to $(echo "$next_sink" | jq -r '.description')"

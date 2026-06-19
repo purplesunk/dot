@@ -35,8 +35,7 @@ pathprepend() {
 pathappend \
     "$SCRIPTS" \
     "$HOME/.local/bin" \
-    "$HOME/.local/go/bin" \
-    "$HOME/.local/share/racket/8.12/bin"
+    "$HOME/.local/go/bin"
 
 # CDPATH
 export CDPATH=".:$HOME:$MYREPOS"
@@ -82,8 +81,9 @@ alias "?"='duck'
 alias tmux='tmux -f "$HOME/.config/tmux/tmux.conf"'
 alias vim=nvim
 alias python=python3
-alias ytd="yt-dlp -f 'bv+ba' -S 'res:720' -t mkv"
-alias ythd="yt-dlp -f 'bv+ba' -S 'res:1080' -t mkv"
+alias ytd="yt-dlp -f 'bv+ba' -S 'res:720' "
+alias ythd="yt-dlp -f 'bv+ba' -S 'res:1080' "
+alias yta="yt-dlp -f 'ba' "
 
 
 # Import folder aliases
